@@ -16,10 +16,13 @@ test('should start with correct init state', () => {
                 userList: [{username: 'admin', password: 'pass'}, {username: 'a', password: 'a'}],
                 currentUser: '',
                 currentPassword: '',
-                commentList: [{parentID:1, comment:'a', date: '02/22/22', user:'admin'},
-                {parentID:1, comment:'comment2', date: '02/22/22', user:'user2'}, {parentID:2, comment:'comment3', date: '02/22/22', user:'user2'},
-                {parentID:1, comment:'comment4', date: '02/22/22', user:'user3'}],
-                threadList: [{id: 1, content:'a', date: '02/22/22', user: 'admin'}, {id: 2, content:'b', date: '02/22/22', user: 'admin'}],
+        commentList: [{id:1, parentID:1, comment:'a', date: '02/22/22', user:'admin'},
+            {id: 2, parentID:1, comment:'comment2', date: '02/22/22', user:'user2'},
+            {id:3, parentID:2, comment:'comment3', date: '02/22/22', user:'user2'},
+            {id: 4, parentID:1, comment:'comment4', date: '02/22/22', user:'user3'}],
+        threadList: [{id: 1, content:'a', date: '02/22/22', user: 'admin'},
+            {id: 2, content:'b', date: '02/22/22', user: 'admin'},
+            {id: 3, content:'c', date: '02/22/22', user: 'admin'}],
                 messageList: [],
                 loginError: ''});
 })
@@ -91,15 +94,11 @@ test('should call ON_POST_DELETE, filter the postid from threadList, and child c
     const state = reducer(initState, {type: ON_POST_DELETE, post})
     expect(state).toStrictEqual({
         ...initState,
-        threadList: [
-            {id: 1, content:'a', date: '02/22/22', user: 'admin'},
-            {id: 3, content:'c', date: '02/22/22', user: 'admin'} //removed id2
-        ],
-        commentList: [
-            {parentID:1, comment:'a', date: '02/22/22', user:'admin'},
-            {parentID:1, comment:'comment2', date: '02/22/22', user:'user2'},
-            {parentID:1, comment:'comment4', date: '02/22/22', user:'user3'}
-        ]
+        commentList: [{id:1, parentID:1, comment:'a', date: '02/22/22', user:'admin'},
+            {id: 2, parentID:1, comment:'comment2', date: '02/22/22', user:'user2'},
+            {id: 4, parentID:1, comment:'comment4', date: '02/22/22', user:'user3'}],
+        threadList: [{id: 1, content:'a', date: '02/22/22', user: 'admin'},
+            {id: 3, content:'c', date: '02/22/22', user: 'admin'}]
 
     })
 })

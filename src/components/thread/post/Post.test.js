@@ -32,7 +32,7 @@ test(
 )
 
 test(
-    "should render an edit, delete show comments buttons if user created thread",
+    "should render a delete, show comments buttons if user created thread",
     () => {
         const dispatch = jest.fn();
         const _useSelector = (fn) => fn(
@@ -46,7 +46,7 @@ test(
 
         render(<Post post={testPost}_useDispatch={() => dispatch} _useSelector={_useSelector} _AddComment={mock}/>)
 
-        expect(screen.getAllByRole('button').length).toBe(3);
+        expect(screen.getAllByRole('button').length).toBe(2);
     }
 )
 
